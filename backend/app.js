@@ -10,6 +10,9 @@ mongoose
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 const app = express();
+app.use(express.json());
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -24,6 +27,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json());
+const userRoutes = require("./routes/user");
+//const saucesRoutes = require("./routes/sauces");
+
+app.use("/api/auth", userRoutes);
+//app.use("/api/sauces", saucesRoutes);
 
 module.exports = app;
