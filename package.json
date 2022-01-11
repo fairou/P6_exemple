@@ -1,7 +1,7 @@
 {
-  "name": "piquante",
+  "name": "hot-takes",
   "version": "1.0.0",
-  "description": "",
+  "description": "Here are the dependancies you need to install:\r - NodeJS 12.14 or 14.0.\r - Angular CLI 7.0.2.\r - node-sass : make sure to use the corresponding version to NodeJS. For Noe 14.0 for instance, you need node-sass in version 4.14+.",
   "main": "index.html",
   "scripts": {
     "start": "run-script-os",
@@ -12,15 +12,19 @@
   "license": "ISC",
   "dependencies": {
     "@angular/cli": "^7.0.2",
-    "concurrently": "^7.0.0",
-    "express": "^4.17.2",
-    "http-server": "^14.0.0",
+    "concurrently": "^5.2.0",
+    "http-server": "^0.11.1",
     "live-server": "^1.2.1",
-    "mongoose": "^6.1.5",
-    "node": "14.0",
-    "node-sass": "4.14",
-    "nodemon": "^2.0.15"
+    "node-sass": "^4.14.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hoggy06/Tournier_Maxime_6_05012022.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Hoggy06/Tournier_Maxime_6_05012022/issues"
+  },
+  "homepage": "https://github.com/Hoggy06/Tournier_Maxime_6_05012022#readme",
   "devDependencies": {
     "run-script-os": "^1.1.6"
   }
