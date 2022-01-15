@@ -1,14 +1,16 @@
 //Importation des dependances
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 
 //Connexion à la bdd
 mongoose
-  .connect(
-    "mongodb+srv://Hoggy:Jslogcndmenptein06@cluster0.aalxz.mongodb.net/Cluster0?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
@@ -35,10 +37,10 @@ app.use((req, res, next) => {
 
 //Imporation des différentes routes
 const userRoutes = require("./routes/user");
-//const saucesRoutes = require("./routes/sauces");
+const saucesRoutes = require("./routes/sauces");
 
 //Middleware pour l'authentification
 app.use("/api/auth", userRoutes);
-//app.use("/api/sauces", saucesRoutes);
+app.use("/api/sauces", saucesRoutes);
 
 module.exports = app;
