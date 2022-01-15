@@ -30,7 +30,9 @@ exports.login = (req, res, next) => {
     //Si non trouvé 401
     .then((user) => {
       if (!user) {
-        return res.status(401).json({ error: "Utilisateur non trouvé !" });
+        return res
+          .status(401)
+          .json({ error: "Adresse mail ou mot de passe incorrect" });
       }
       //Utilisation de bcrypt pour la comparaison du mot de passe
       bcrypt
@@ -38,12 +40,14 @@ exports.login = (req, res, next) => {
         //Si invalide 401
         .then((valid) => {
           if (!valid) {
-            return res.status(401).json({ error: "Mot de passe incorrect !" });
+            return res
+              .status(401)
+              .json({ error: "Adresse mail ou mot de passe incorrect" });
           }
           //sinon 200 + création d'un token valable 24h
           res.status(200).json({
             userId: user._id,
-            token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
+            token: jwt.sign({ userId: user._id }, process.env.TOKEN_KEY, {
               expiresIn: "24h",
             }),
           });
