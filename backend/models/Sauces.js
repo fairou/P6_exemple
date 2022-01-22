@@ -1,5 +1,6 @@
+//Importation de mongoose
 const mongoose = require("mongoose");
-
+//Creation du model pour les sauces
 const saucesSchema = mongoose.Schema({
   // UserId du createur
   userId: {
@@ -39,10 +40,12 @@ const saucesSchema = mongoose.Schema({
   // nombre de Like reçu
   likes: {
     type: Number,
+    default: 0,
   },
   // nombre de dislike reçu
   dislikes: {
     type: Number,
+    default: 0,
   },
   // Utilisateurs qui Like la sauce
   usersLiked: {
@@ -53,5 +56,5 @@ const saucesSchema = mongoose.Schema({
     type: [String],
   },
 });
-
+//Exportation du model
 module.exports = mongoose.model("Sauces", saucesSchema);
