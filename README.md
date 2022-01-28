@@ -1,26 +1,27 @@
 # Tournier_Maxime_6_05012022
+
 Création d'une API de sauce piquante
 
-# HOT TAKES #
+# HOT TAKES
 
-## Installation ##
+## Installation
 
-Here are the dependancies you need to install:
-- NodeJS 12.14 or 14.0.
-- Angular CLI 7.0.2.
-- node-sass : make sure to use the corresponding version to NodeJS. For Noe 14.0 for instance, you need node-sass in version 4.14+.
+Lancer `npm install` dans le dossier frontend.
 
-On Windows, these installations require to use PowerShell in administrator mode.
+Meme chose pour le dossier backend.
 
-Then, clone this repo, `run npm install`, and `run npm install --save-dev run-script-os`.
+## Usage
 
+Le serveur se lance via la commande `nodemon server`.
 
-## Usage ##
+Coté frontend il faudra lancer l'application avec `npm start`.
 
-Run `npm start`. This should both run the local server and launch your browser.
+Créer un dossier images dans le dossier backend.
 
-If your browser fails to launch, or shows a 404 error, navigate your browser to http://localhost:8080.
+Pour le fichier .env à placer dans le dossier backend, demander moi de vous l'envoyer.
 
-The app should reload automatically when you make a change to a file.
+## Documentation
 
-Use `Ctrl+C` in the terminal to stop the local server.
+Vous trouverez la documentation rédigée à cette endroit:
+
+https://documenter.getpostman.com/view/1788084/UVXonaBZ
