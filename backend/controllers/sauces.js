@@ -22,7 +22,7 @@ exports.createSauce = (req, res, next) => {
     .save()
     .then(() => res.status(201).json({ message: "Sauce enregistrée !" }))
     //Bad request
-    .catch(() => res.status(400).json({ error: "Sauce non enregistrée" }));
+    .catch((error) => res.status(400).json({ error: "Sauce non enregistrée" }));
 };
 //Récupération de toute les sauces
 exports.getAllSauces = (req, res, next) => {
@@ -103,11 +103,7 @@ exports.deleteSauce = (req, res, next) => {
           //Suppression de l'id de la sauce et de tout contenu
           Sauces.deleteOne({ _id: req.params.id })
             .then(() => res.status(200).json({ message: "Sauce supprimée !" }))
-            .catch(() =>
-              res
-                .status(400)
-                .json({ error: "Impossible de supprimée la sauce concernée !" })
-            );
+            .catch((error) => res.status(400).json({ error }));
         });
       }
     })
@@ -145,7 +141,7 @@ exports.likeOrDislikeSauce = (req, res, next) => {
             .catch((error) => res.status(500).json(error));
         } else {
           //Si l'utilisateur a déjà liker le contenu alors il ne peut pas reliker
-          res.status(400).json({
+          res.status(401).json({
             error: "Like déjà pris en compte",
           });
         }
@@ -170,7 +166,7 @@ exports.likeOrDislikeSauce = (req, res, next) => {
             .catch((error) => res.status(500).json(error));
         } else {
           //Si l'utilisateur a déjà disliker le contenu alors il ne peut pas reliker
-          res.status(400).json({
+          res.status(401).json({
             error: "Dislike déjà pris en compte",
           });
         }
