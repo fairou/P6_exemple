@@ -69,7 +69,7 @@ exports.modifySauce = (req, res, next) => {
                 req.file.filename
               }`,
             }
-          : //Sinon on envoie les données seulement modifiées
+          : //Sinon on envoie les données seulement modifiées sans le fichier image
             { ...req.body };
         //Mise à jour du contenu qui a été modifié
 
