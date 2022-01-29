@@ -14,9 +14,12 @@ const storage = multer.diskStorage({
   },
   //Formats du fichiers dans son appelation
   filename: (req, file, callback) => {
-    const name = file.originalname.split(" ").join("_");
+    //On supprime l'extension de fichier
+    const name = file.originalname.slice(0, -5);
+    //On vérifie si l'extension est acceptée
     const extension = MIME_TYPES[file.mimetype];
-    callback(null, name + "." + extension);
+    //photo_date.extension
+    callback(null, name.concat("_") + Date.now() + "." + extension);
   },
 });
 //Exportation du module
