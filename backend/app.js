@@ -4,8 +4,13 @@ dotenv.config();
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const cors = require("cors");
+const helmet = require("helmet");
 //Utilisation d'express
 const app = express();
+//Protection des en-tetes headers
+app.use(helmet());
+app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));
 
 //Imporation des différentes routes
 const userRoutes = require("./routes/user");
@@ -21,18 +26,8 @@ mongoose
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 //Middleware CORS
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  );
-  next();
-});
+app.use(cors());
+app.options(process.env.WEBSITE, cors());
 
 app.use(express.json());
 
@@ -40,8 +35,8 @@ app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 //Middleware pour l'authentification
-app.use("/api/auth", userRoutes);
+app.use("/api/auth", cors(), userRoutes);
 //Middleware pour les sauces
-app.use("/api/sauces", saucesRoutes);
+app.use("/api/sauces", cors(), saucesRoutes);
 
 module.exports = app;
