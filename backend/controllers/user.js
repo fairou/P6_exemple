@@ -7,7 +7,7 @@ const schemaPassword = require("../models/passwordValidator");
 //Fonction signup
 exports.signup = (req, res, next) => {
   if (!schemaPassword.validate(req.body.password)) {
-    res.status(400).send({
+    return res.status(400).send({
       message: `Le mot de passe doit contenir au moins : 8 à 20 caractères, une majuscule, une minuscule, un chiffre, et aucun espace`,
     });
   } else {
@@ -39,7 +39,7 @@ exports.login = (req, res, next) => {
       if (!user) {
         return res
           .status(401)
-          .json({ error: "Adresse mail ou mot de passe incorrect" });
+          .send({ message: `Adresse mail ou mot de passe incorrect` });
       }
       //Utilisation de bcrypt pour la comparaison du mot de passe
       bcrypt
@@ -49,7 +49,7 @@ exports.login = (req, res, next) => {
           if (!valid) {
             return res
               .status(401)
-              .json({ error: "Adresse mail ou mot de passe incorrect" });
+              .send({ message: `Adresse mail ou mot de passe incorrect` });
           }
           //sinon 200 + création d'un token valable 24h
           res.status(200).json({
