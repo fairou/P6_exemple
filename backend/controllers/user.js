@@ -46,9 +46,7 @@ exports.login = (req, res, next) => {
     //Si non trouvé 401
     .then((user) => {
       if (!user) {
-        return res
-          .status(401)
-          .send({ message: `Adresse mail ou mot de passe incorrect` });
+        return res.status(401).send({ message: `Utilisateur non trouvé` });
       }
       //Utilisation de bcrypt pour la comparaison du mot de passe
       bcrypt
