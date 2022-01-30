@@ -2,10 +2,15 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const cryptojs = require("crypto-js");
 const schemaPassword = require("../models/passwordValidator");
 
 //Fonction signup
 exports.signup = (req, res, next) => {
+  //On crypte l'email pour préserver l'anonymat
+  const cryptedEmail = cryptojs
+    .HmacSHA256(req.body.email, process.env.EMAIL_CRYPTOJS_KEY)
+    .toString();
   if (!schemaPassword.validate(req.body.password)) {
     return res.status(400).send({
       message: `Le mot de passe doit contenir au moins : 8 à 20 caractères, une majuscule, une minuscule, un chiffre, et aucun espace`,
@@ -16,7 +21,7 @@ exports.signup = (req, res, next) => {
       .hash(req.body.password, 10)
       .then((hash) => {
         const user = new User({
-          email: req.body.email,
+          email: cryptedEmail,
           password: hash,
         });
         //Si user est crée = 201 sinon 401
@@ -32,8 +37,12 @@ exports.signup = (req, res, next) => {
 
 //Fonction login
 exports.login = (req, res, next) => {
+  //On crypte l'email pour préserver l'anonymat
+  const cryptedEmail = cryptojs
+    .HmacSHA256(req.body.email, process.env.EMAIL_CRYPTOJS_KEY)
+    .toString();
   //Recherche de User dans la bdd
-  User.findOne({ email: req.body.email })
+  User.findOne({ email: cryptedEmail })
     //Si non trouvé 401
     .then((user) => {
       if (!user) {
